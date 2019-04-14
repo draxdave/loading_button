@@ -2,7 +2,7 @@
 <resources>
     <declare-styleable name="NormalButton">
         <attr name="enabled" format="boolean" localization="suggested" />
+        <attr name="circular_loading" format="boolean" localization="suggested" />
 
     </declare-styleable>
-
 </resources>

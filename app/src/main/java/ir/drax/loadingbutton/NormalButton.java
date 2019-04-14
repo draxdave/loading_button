@@ -10,11 +10,23 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class NormalButton extends ConstraintLayout implements View.OnClickListener {
+public class NormalButton extends ConstraintLayout implements View.OnLongClickListener, View.OnClickListener {
     private ContentLoadingProgressBar progressBar;
     private TextView title;
     private float ALPHA_DIS = 0.5f;
     private boolean isEnabled = true;
+    private boolean circularLoading = true;
+    private EventListener eventListener =new EventListener() {
+        @Override
+        public void clicked() {
+
+        }
+
+        @Override
+        public void longClicked() {
+
+        }
+    };
 
 
     public NormalButton(Context context) {
@@ -38,18 +50,24 @@ public class NormalButton extends ConstraintLayout implements View.OnClickListen
         TypedArray a = context.obtainStyledAttributes(attrs,
                 R.styleable.NormalButton, 0, 0);
         isEnabled = a.getBoolean(R.styleable.NormalButton_enabled,true);
+
+        circularLoading = a.getBoolean(R.styleable.NormalButton_circular_loading,true);
+
         a.recycle();
 
     }
 
     public void init(){
         setOnClickListener(this);
+        setOnLongClickListener(this);
         LayoutInflater inflater = (LayoutInflater) getContext()
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.normal_button_main, this, true);
 
-        progressBar=findViewById(R.id.loading_button_loading);
-        title=findViewById(R.id.title);
+        setCircularLoading(circularLoading);
+        progressBar.setVisibility(VISIBLE);
+
+        title = findViewById(R.id.title);
 
         if (isEnabled)enable(true);
         else disable(true);
@@ -73,8 +91,27 @@ public class NormalButton extends ConstraintLayout implements View.OnClickListen
     }
 
     @Override
-    public void onClick(View v) {
-
+    public boolean onLongClick(View v) {
         disable();
+        eventListener.longClicked();
+        return true;
+    }
+
+    @Override
+    public void onClick(View v) {
+        eventListener.clicked();
+        disable();
+    }
+
+    public void setEventListener(EventListener eventLinstener) {
+        this.eventListener = eventLinstener;
+    }
+
+    public void setCircularLoading(boolean circularLoading) {
+        this.circularLoading = circularLoading;
+        if (circularLoading)
+            progressBar = findViewById(R.id.loading_button_circular_loading);
+        else
+            progressBar = findViewById(R.id.loading_button_horizontal_loading);
     }
 }
