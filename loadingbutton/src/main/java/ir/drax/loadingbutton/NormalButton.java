@@ -7,6 +7,7 @@ import android.support.v4.widget.ContentLoadingProgressBar;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 public class NormalButton extends ConstraintLayout implements View.OnLongClickListener, View.OnClickListener {
