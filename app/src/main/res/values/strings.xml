@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">loading button</string>
+    <string name="my_loading_test">my loading test</string>
 </resources>
