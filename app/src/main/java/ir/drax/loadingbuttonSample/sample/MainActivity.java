@@ -2,6 +2,8 @@ package ir.drax.loadingbuttonSample.sample;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Toast;
 
 import ir.drax.loadingbutton.EventListener;
 import ir.drax.loadingbutton.NormalButton;
@@ -18,7 +20,6 @@ public class MainActivity extends AppCompatActivity {
         normalButton.setEventListener(new EventListener() {
             @Override
             public void clicked() {
-
             }
 
             @Override
@@ -26,5 +27,9 @@ public class MainActivity extends AppCompatActivity {
                 normalButton.enable();
             }
         });
+    }
+
+    public void clicked(View view) {
+        Toast.makeText(this, "clicked", Toast.LENGTH_SHORT).show();
     }
 }

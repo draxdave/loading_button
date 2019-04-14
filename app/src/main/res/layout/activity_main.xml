@@ -19,6 +19,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ir.drax.loadingbutton.NormalButton
+        app:onClick="clicked"
         android:id="@+id/myLoading"
         app:background_color="@color/colorPrimaryDark"
         app:loading_color="@color/colorAccent"

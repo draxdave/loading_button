@@ -14,6 +14,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
 public class NormalButton extends ConstraintLayout implements View.OnLongClickListener, View.OnClickListener {
     private ContentLoadingProgressBar progressBar;
     private TextView titleTV;
@@ -23,6 +26,7 @@ public class NormalButton extends ConstraintLayout implements View.OnLongClickLi
     private boolean circularLoading = true;
     private String title = "";
     private Drawable icon ;
+    private Method mHandler;
     private int textColor=0,bgColor=0,progressColor=0;
     private EventListener eventListener =new EventListener() {
         @Override
@@ -62,6 +66,19 @@ public class NormalButton extends ConstraintLayout implements View.OnLongClickLi
         circularLoading = a.getBoolean(R.styleable.NormalButton_circular_loading,true);
 
         title = a.getString(R.styleable.NormalButton_text);
+        String onclick = a.getString(R.styleable.NormalButton_onClick);
+
+        if (onclick != null) {
+
+            try {
+                mHandler = getContext().getClass().getMethod(onclick,
+                        View.class);
+            } catch (NoSuchMethodException e) {
+                throw new IllegalStateException("Could not find a method " +
+                        onclick + "(View) in the activity", e);
+            }
+        }
+
 
         Drawable drawable = a.getDrawable(R.styleable.NormalButton_src);
         if (drawable != null)
@@ -126,8 +143,19 @@ public class NormalButton extends ConstraintLayout implements View.OnLongClickLi
 
     @Override
     public void onClick(View v) {
-        eventListener.clicked();
         disable();
+        eventListener.clicked();
+
+        if (mHandler!=null)
+            try {
+                mHandler.invoke(getContext(), this);
+            } catch (IllegalAccessException e) {
+                throw new IllegalStateException("Could not execute non "
+                        + "public method of the activity", e);
+            } catch (InvocationTargetException e) {
+                throw new IllegalStateException("Could not execute "
+                        + "method of the activity", e);
+            }
     }
 
     public void setEventListener(EventListener eventListener) {
@@ -152,7 +180,7 @@ public class NormalButton extends ConstraintLayout implements View.OnLongClickLi
         this.icon = icon;
         if (icon == null)iconTV.setVisibility(GONE);
         else
-        iconTV.setImageDrawable(icon);
+            iconTV.setImageDrawable(icon);
         ImageViewCompat.setImageTintList(iconTV, ColorStateList.valueOf(textColor));
     }
 }
