@@ -3,6 +3,11 @@
     <declare-styleable name="NormalButton">
         <attr name="enabled" format="boolean" localization="suggested" />
         <attr name="circular_loading" format="boolean" localization="suggested" />
+        <attr name="text" format="string"  />
+        <attr name="src" format="integer"  />
+        <attr name="text_color" format="color"  />
+        <attr name="background_color" format="color"  />
+        <attr name="loading_color" format="color"  />
 
     </declare-styleable>
 </resources>

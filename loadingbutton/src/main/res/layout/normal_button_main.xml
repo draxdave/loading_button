@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:minWidth="50dp"
     android:minHeight="50dp"
-    android:background="@color/colorPrimary"
+    android:background="?android:attr/selectableItemBackground"
     tools:context="ir.drax.loadingbutton.NormalButton">
 
     <TextView
@@ -15,25 +15,37 @@
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
         android:id="@+id/title"
-        android:textColor="@color/button_text_color"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Hello World!"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        />
+
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/title"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+         />
+
 
     <android.support.v4.widget.ContentLoadingProgressBar
         android:id="@+id/loading_button_circular_loading"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:padding="4dp"
+        android:visibility="gone"
         android:background="@color/transparent_white"
         style="?android:attr/progressBarStyleLarge"
         android:indeterminateTintMode="src_atop"
-        android:indeterminateTint="@color/button_progress_color"
-        android:progressDrawable="@drawable/loading"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -47,7 +59,6 @@
         android:visibility="gone"
         style="?android:attr/progressBarStyleHorizontal"
         android:indeterminateTintMode="src_atop"
-        android:indeterminateTint="@color/button_progress_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"

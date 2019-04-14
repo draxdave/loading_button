@@ -15,7 +15,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         final NormalButton normalButton= findViewById(R.id.myLoading);
-        normalButton.setCircularLoading(false);
         normalButton.setEventListener(new EventListener() {
             @Override
             public void clicked() {
@@ -24,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void longClicked() {
-                //normalButton.enable();
+                normalButton.enable();
             }
         });
     }

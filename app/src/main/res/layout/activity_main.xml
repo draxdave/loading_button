@@ -20,7 +20,12 @@
 
     <ir.drax.loadingbutton.NormalButton
         android:id="@+id/myLoading"
-        app:enabled="false"
+        app:background_color="@color/colorPrimaryDark"
+        app:loading_color="@color/colorAccent"
+        app:text_color="#ddd"
+        app:text="سلام علیکم!"
+        app:src="@drawable/ic_android_black_24dp"
+        app:circular_loading="false"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
