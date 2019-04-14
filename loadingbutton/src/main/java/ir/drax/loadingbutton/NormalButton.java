@@ -8,7 +8,6 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class NormalButton extends ConstraintLayout implements View.OnLongClickListener, View.OnClickListener {
     private ContentLoadingProgressBar progressBar;
@@ -65,7 +64,7 @@ public class NormalButton extends ConstraintLayout implements View.OnLongClickLi
         inflater.inflate(R.layout.normal_button_main, this, true);
 
         setCircularLoading(circularLoading);
-        progressBar.setVisibility(VISIBLE);
+        progressBar.setVisibility(View.VISIBLE);
 
         title = findViewById(R.id.title);
 

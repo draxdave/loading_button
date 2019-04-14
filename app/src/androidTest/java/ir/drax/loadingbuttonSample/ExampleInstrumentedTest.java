@@ -1,4 +1,4 @@
-package ir.drax.loadingbutton;
+package ir.drax.loadingbuttonSample;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

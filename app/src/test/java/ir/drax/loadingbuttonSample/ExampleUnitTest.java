@@ -1,4 +1,4 @@
-package ir.drax.loadingbutton;
+package ir.drax.loadingbuttonSample;
 
 import org.junit.Test;
 
