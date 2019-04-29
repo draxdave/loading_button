@@ -28,17 +28,8 @@ public class NormalButton extends ConstraintLayout implements View.OnLongClickLi
     private Drawable icon ;
     private Method mHandler;
     private int textColor=0,bgColor=0,progressColor=0;
-    private EventListener eventListener =new EventListener() {
-        @Override
-        public void clicked() {
-
-        }
-
-        @Override
-        public void longClicked() {
-
-        }
-    };
+    private LongClickListener longClickListener;
+    private ClickListener clickListener;
 
 
     public NormalButton(Context context) {
@@ -93,6 +84,7 @@ public class NormalButton extends ConstraintLayout implements View.OnLongClickLi
     }
 
     public void init(){
+        removeAllViews();
         setOnClickListener(this);
         setOnLongClickListener(this);
         LayoutInflater inflater = (LayoutInflater) getContext()
@@ -136,18 +128,22 @@ public class NormalButton extends ConstraintLayout implements View.OnLongClickLi
 
     @Override
     public boolean onLongClick(View v) {
-        disable();
-        eventListener.longClicked();
+        if (longClickListener !=null) {
+            disable();
+            longClickListener.longClicked();
+        }
         return true;
     }
 
     @Override
     public void onClick(View v) {
-        disable();
-        eventListener.clicked();
+        if (clickListener != null) {
+            disable();
+            clickListener.clicked();
 
-        if (mHandler!=null)
+        }else if (mHandler != null) {
             try {
+                disable();
                 mHandler.invoke(getContext(), this);
             } catch (IllegalAccessException e) {
                 throw new IllegalStateException("Could not execute non "
@@ -156,10 +152,15 @@ public class NormalButton extends ConstraintLayout implements View.OnLongClickLi
                 throw new IllegalStateException("Could not execute "
                         + "method of the activity", e);
             }
+        }
     }
 
-    public void setEventListener(EventListener eventListener) {
-        this.eventListener = eventListener;
+    public void setLongClickListener(LongClickListener longClickListener) {
+        this.longClickListener = longClickListener;
+    }
+
+    public void setClickListener(ClickListener clickListener) {
+        this.clickListener = clickListener;
     }
 
     public void setCircularLoading(boolean circularLoading) {
@@ -184,3 +185,4 @@ public class NormalButton extends ConstraintLayout implements View.OnLongClickLi
         ImageViewCompat.setImageTintList(iconTV, ColorStateList.valueOf(textColor));
     }
 }
+

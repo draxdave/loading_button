@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
-import ir.drax.loadingbutton.EventListener;
+import ir.drax.loadingbutton.LongClickListener;
 import ir.drax.loadingbutton.NormalButton;
 import ir.drax.loadingbuttonSample.R;
 
@@ -17,16 +17,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         final NormalButton normalButton= findViewById(R.id.myLoading);
-        normalButton.setEventListener(new EventListener() {
-            @Override
-            public void clicked() {
-            }
-
+        normalButton.setLongClickListener(new LongClickListener() {
             @Override
             public void longClicked() {
                 normalButton.enable();
             }
         });
+
     }
 
     public void clicked(View view) {
