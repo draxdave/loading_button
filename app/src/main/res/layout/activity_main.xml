@@ -27,7 +27,7 @@
         app:text="سلام علیکم!"
         app:src="@drawable/ic_android_black_24dp"
         app:circular_loading="false"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
 </LinearLayout>
