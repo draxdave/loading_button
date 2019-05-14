@@ -16,11 +16,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final NormalButton normalButton= findViewById(R.id.myLoading);
+        NormalButton normalButton= findViewById(R.id.myLoading);
+
         normalButton.setLongClickListener(new LongClickListener() {
             @Override
-            public void longClicked() {
-                normalButton.enable();
+            public void longClicked(NormalButton button) {
+                button.ready();
             }
         });
 

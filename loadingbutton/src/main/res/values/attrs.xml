@@ -6,7 +6,7 @@
         <attr name="text" format="string"  />
         <attr name="src" format="integer"  />
         <attr name="text_color" format="color"  />
-        <attr name="background_color" format="color"  />
+        <attr name="icon_tint" format="color"  />
         <attr name="loading_color" format="color"  />
         <attr name="onClick" format="string"  />
         <attr name="on_long_click" format="string"  />

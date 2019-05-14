@@ -1,5 +1,5 @@
 package ir.drax.loadingbutton;
 
 public interface LongClickListener {
-    void longClicked();
+    void longClicked(NormalButton button);
 }

@@ -22,12 +22,12 @@ public class NormalButton extends ConstraintLayout implements View.OnLongClickLi
     private TextView titleTV;
     private ImageView iconTV;
     private float ALPHA_DIS = 0.5f;
-    private boolean isEnabled = true ;
     private boolean circularLoading = true;
+    private boolean isEnabled = true;
     private String title = "";
     private Drawable icon ;
     private Method mHandler;
-    private int textColor=0,bgColor=0,progressColor=0;
+    private int textColor=0, iconTint =0,progressColor=0;
     private LongClickListener longClickListener;
     private ClickListener clickListener;
 
@@ -76,21 +76,21 @@ public class NormalButton extends ConstraintLayout implements View.OnLongClickLi
             icon = drawable;
 
         textColor=a.getColor(R.styleable.NormalButton_text_color,getResources().getColor(R.color.colorAccent));
-        bgColor=a.getColor(R.styleable.NormalButton_background_color,getResources().getColor(R.color.colorPrimary));
+        iconTint =a.getColor(R.styleable.NormalButton_icon_tint,getResources().getColor(R.color.colorPrimary));
         progressColor=a.getColor(R.styleable.NormalButton_loading_color,getResources().getColor(R.color.colorAccent));
 
         a.recycle();
 
     }
 
-    public void init(){
+    public NormalButton init(){
         removeAllViews();
         setOnClickListener(this);
         setOnLongClickListener(this);
         LayoutInflater inflater = (LayoutInflater) getContext()
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.normal_button_main, this, true);
-        setBackgroundColor(bgColor);
+        setBackground();
 
 
         setCircularLoading(circularLoading);
@@ -103,12 +103,21 @@ public class NormalButton extends ConstraintLayout implements View.OnLongClickLi
         setIcon(icon);
 
 
-        if (isEnabled)enable(true);
-        else disable(true);
+        if (isEnabled) ready(true);//Default state ..
+        else busy(true);
+
+        return this;
     }
 
-    public void enable(){enable(false);}
-    public void enable(boolean forced){
+    private void setBackground() {
+        if (getBackground()==null)
+            setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+
+    }
+
+    public void ready(){
+        ready(false);}
+    public void ready(boolean forced){
         if (isEnabled && !forced)return;
         else isEnabled=true;
 
@@ -116,8 +125,9 @@ public class NormalButton extends ConstraintLayout implements View.OnLongClickLi
         titleTV.setAlpha(1f);
         iconTV.setAlpha(1f);
     }
-    public void disable(){disable(false);}
-    public void disable(boolean forced){
+    public void busy(){
+        busy(false);}
+    public void busy(boolean forced){
         if (isEnabled || forced)isEnabled=false;
         else return;
 
@@ -128,22 +138,22 @@ public class NormalButton extends ConstraintLayout implements View.OnLongClickLi
 
     @Override
     public boolean onLongClick(View v) {
-        if (longClickListener !=null) {
-            disable();
-            longClickListener.longClicked();
+        if (longClickListener !=null && isEnabled) {
+            busy();
+            longClickListener.longClicked(this);
         }
         return true;
     }
 
     @Override
     public void onClick(View v) {
-        if (clickListener != null) {
-            disable();
-            clickListener.clicked();
+        if (clickListener != null && isEnabled) {
+            busy();
+            clickListener.clicked(this);
 
-        }else if (mHandler != null) {
+        }else if (mHandler != null && isEnabled) {
             try {
-                disable();
+                busy();
                 mHandler.invoke(getContext(), this);
             } catch (IllegalAccessException e) {
                 throw new IllegalStateException("Could not execute non "
@@ -155,34 +165,53 @@ public class NormalButton extends ConstraintLayout implements View.OnLongClickLi
         }
     }
 
-    public void setLongClickListener(LongClickListener longClickListener) {
+    public NormalButton setLongClickListener(LongClickListener longClickListener) {
         this.longClickListener = longClickListener;
+        return this;
     }
 
-    public void setClickListener(ClickListener clickListener) {
+    public NormalButton setClickListener(ClickListener clickListener) {
         this.clickListener = clickListener;
+        return this;
     }
 
-    public void setCircularLoading(boolean circularLoading) {
+    public NormalButton setCircularLoading(boolean circularLoading) {
         this.circularLoading = circularLoading;
         if (circularLoading)
             progressBar = findViewById(R.id.loading_button_circular_loading);
         else
             progressBar = findViewById(R.id.loading_button_horizontal_loading);
+
+        return this;
     }
 
-    public void setTitle(String title) {
+    public NormalButton setTitle(String title) {
         this.title = title;
         titleTV.setText(title);
         titleTV.setTextColor(textColor);
+
+        return this;
     }
 
-    public void setIcon(Drawable icon) {
+    public NormalButton setIcon(Drawable icon) {
         this.icon = icon;
         if (icon == null)iconTV.setVisibility(GONE);
         else
             iconTV.setImageDrawable(icon);
         ImageViewCompat.setImageTintList(iconTV, ColorStateList.valueOf(textColor));
+
+        return this;
     }
+
+    public void disable(){
+        setAlpha(0.5f);
+        isEnabled =false;
+    }
+
+    public void enable(){
+        setAlpha(1.0f);
+        isEnabled =true;
+    }
+
 }
 

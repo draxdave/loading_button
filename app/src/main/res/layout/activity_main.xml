@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:gravity="center"
+    android:background="#ddd"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".sample.MainActivity">
@@ -19,15 +20,16 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ir.drax.loadingbutton.NormalButton
-
+        app:onClick="clicked"
+        android:layout_margin="16dp"
         android:id="@+id/myLoading"
         app:background_color="@color/colorPrimaryDark"
         app:loading_color="@color/colorAccent"
         app:text_color="#ddd"
         app:text="سلام علیکم!"
         app:src="@drawable/ic_android_black_24dp"
-        app:circular_loading="false"
-        android:layout_width="match_parent"
+        android:background="@drawable/curved_rect"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
 </LinearLayout>
