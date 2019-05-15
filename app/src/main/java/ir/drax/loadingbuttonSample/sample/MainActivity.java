@@ -28,6 +28,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void clicked(View view) {
-        Toast.makeText(this, "clicked", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "clicked!", Toast.LENGTH_SHORT).show();
     }
 }

@@ -240,12 +240,12 @@ public class NormalButton extends ConstraintLayout implements View.OnLongClickLi
         return typeface;
     }
 
-    public void setTypeface(Typeface typeface) {
+    public void setFontTypeface(Typeface typeface) {
         this.typeface = typeface;
         titleTV.setTypeface(typeface);
     }
 
-    public void setTypefaceFromAsset(String typefaceName) {
+    public void setFontTypefaceFromAsset(String typefaceName) {
 
         this.typeface =  Typeface.createFromAsset(getContext().getAssets(), typefaceName);
         titleTV.setTypeface(typeface);

@@ -10,6 +10,12 @@
     android:background="?android:attr/selectableItemBackground"
     tools:context="ir.drax.loadingbutton.NormalButton">
 
+    <android.support.constraint.Guideline
+        android:id="@+id/div"
+        app:layout_constraintGuide_percent="0.3"
+        android:orientation="vertical"
+        android:layout_width="0dp"
+        android:layout_height="0dp" />
     <TextView
         android:id="@+id/title"
         android:textStyle="bold"
@@ -19,8 +25,10 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        />
+        app:layout_constraintStart_toStartOf="@id/div"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp" />
 
     <ImageView
         android:id="@+id/icon"
@@ -29,7 +37,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/title"
+        app:layout_constraintEnd_toStartOf="@id/div"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
