@@ -7,6 +7,7 @@ import android.graphics.LightingColorFilter;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.support.constraint.ConstraintLayout;
+import android.support.constraint.Guideline;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.widget.ContentLoadingProgressBar;
 import android.support.v4.widget.ImageViewCompat;
@@ -22,6 +23,7 @@ import java.lang.reflect.Method;
 
 public class NormalButton extends ConstraintLayout implements View.OnLongClickListener, View.OnClickListener {
     private ContentLoadingProgressBar progressBar;
+    private float guidPercentage = 0.3f;
     private TextView titleTV;
     private ImageView iconTV;
     private View root;
@@ -210,9 +212,15 @@ public class NormalButton extends ConstraintLayout implements View.OnLongClickLi
 
     public NormalButton setIcon(Drawable icon) {
         this.icon = icon;
-        if (icon == null)iconTV.setVisibility(GONE);
-        else
+        Guideline guideline = findViewById(R.id.div);
+        if (icon == null){
+            iconTV.setVisibility(GONE);
+            guideline.setGuidelinePercent(0);
+        }
+        else {
             iconTV.setImageDrawable(icon);
+            guideline.setGuidelinePercent(guidPercentage);
+        }
 
         return this;
     }
@@ -225,6 +233,12 @@ public class NormalButton extends ConstraintLayout implements View.OnLongClickLi
     public void enable(){
         setAlpha(1.0f);
         isEnabled =true;
+    }
+
+    public void enableAndReady(){
+        setAlpha(1.0f);
+        isEnabled =true;
+        ready();
     }
 
     public int getIconTint() {
