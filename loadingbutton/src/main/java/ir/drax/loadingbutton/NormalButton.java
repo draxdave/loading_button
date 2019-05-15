@@ -4,11 +4,14 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.LightingColorFilter;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.widget.ContentLoadingProgressBar;
 import android.support.v4.widget.ImageViewCompat;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -21,6 +24,7 @@ public class NormalButton extends ConstraintLayout implements View.OnLongClickLi
     private ContentLoadingProgressBar progressBar;
     private TextView titleTV;
     private ImageView iconTV;
+    private View root;
     private float ALPHA_DIS = 0.5f;
     private boolean circularLoading = true;
     private boolean isEnabled = true;
@@ -30,6 +34,7 @@ public class NormalButton extends ConstraintLayout implements View.OnLongClickLi
     private int textColor=0, iconTint = 0,progressColor=0;
     private LongClickListener longClickListener;
     private ClickListener clickListener;
+    private Typeface typeface;
 
 
     public NormalButton(Context context) {
@@ -70,14 +75,22 @@ public class NormalButton extends ConstraintLayout implements View.OnLongClickLi
             }
         }
 
-
         Drawable drawable = a.getDrawable(R.styleable.NormalButton_src);
         if (drawable != null)
             icon = drawable;
 
         textColor=a.getColor(R.styleable.NormalButton_text_color,getResources().getColor(R.color.colorAccent));
-        iconTint =a.getColor(R.styleable.NormalButton_icon_tint,getResources().getColor(R.color.grey));
+        iconTint =a.getColor(R.styleable.NormalButton_icon_tint,getResources().getColor(R.color.colorAccent));
         progressColor=a.getColor(R.styleable.NormalButton_loading_color,getResources().getColor(R.color.colorAccent));
+
+        int fontId;
+        if (a.hasValue(R.styleable.NormalButton_fontFamily))
+            fontId = a.getResourceId(R.styleable.NormalButton_fontFamily, -1);
+
+        else
+            fontId = R.font.quicksand_bold;
+
+        typeface = ResourcesCompat.getFont(context, fontId);
 
         a.recycle();
 
@@ -98,8 +111,10 @@ public class NormalButton extends ConstraintLayout implements View.OnLongClickLi
         progressBar.getIndeterminateDrawable().setColorFilter(new LightingColorFilter(0xFF000000, progressColor));
 
         titleTV = findViewById(R.id.title);
+        root = findViewById(R.id.root);
         iconTV = findViewById(R.id.icon);
         setTitle(title);
+        titleTV.setTypeface(typeface);
         setIcon(icon);
         setIconTint(iconTint);
 
@@ -123,8 +138,8 @@ public class NormalButton extends ConstraintLayout implements View.OnLongClickLi
         else isEnabled=true;
 
         progressBar.hide();
-        titleTV.setAlpha(1f);
-        iconTV.setAlpha(1f);
+        root.setAlpha(1f);
+
     }
     public void busy(){
         busy(false);}
@@ -133,8 +148,7 @@ public class NormalButton extends ConstraintLayout implements View.OnLongClickLi
         else return;
 
         progressBar.show();
-        titleTV.setAlpha(ALPHA_DIS);
-        iconTV.setAlpha(ALPHA_DIS);
+        root.setAlpha(ALPHA_DIS);
     }
 
     @Override
@@ -220,6 +234,21 @@ public class NormalButton extends ConstraintLayout implements View.OnLongClickLi
     public void setIconTint(int iconTint) {
         this.iconTint = iconTint;
         ImageViewCompat.setImageTintList(iconTV, ColorStateList.valueOf(iconTint));
+    }
+
+    public Typeface getTypeface() {
+        return typeface;
+    }
+
+    public void setTypeface(Typeface typeface) {
+        this.typeface = typeface;
+        titleTV.setTypeface(typeface);
+    }
+
+    public void setTypefaceFromAsset(String typefaceName) {
+
+        this.typeface =  Typeface.createFromAsset(getContext().getAssets(), typefaceName);
+        titleTV.setTypeface(typeface);
     }
 }
 

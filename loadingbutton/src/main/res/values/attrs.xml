@@ -10,6 +10,7 @@
         <attr name="loading_color" format="color"  />
         <attr name="onClick" format="string"  />
         <attr name="on_long_click" format="string"  />
+        <attr name="fontFamily" format="string"  />
 
     </declare-styleable>
 </resources>

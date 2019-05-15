@@ -23,12 +23,13 @@
         app:onClick="clicked"
         android:layout_margin="16dp"
         android:id="@+id/myLoading"
-
-        app:loading_color="@color/colorAccent"
-        app:text_color="#ddd"
-        app:text="سلام علیکم!"
+        app:loading_color="@color/White"
+        app:text_color="@color/White_90"
+        app:icon_tint="@color/White_90"
+        app:text="Press me!"
         app:src="@drawable/ic_android_black_24dp"
-        android:background="@color/colorPrimaryDark"
+        android:background="@drawable/curved_rect"
+        app:fontFamily="@font/iran_sans"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
