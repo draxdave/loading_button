@@ -27,7 +27,7 @@ public class NormalButton extends ConstraintLayout implements View.OnLongClickLi
     private String title = "";
     private Drawable icon ;
     private Method mHandler;
-    private int textColor=0, iconTint =0,progressColor=0;
+    private int textColor=0, iconTint = 0,progressColor=0;
     private LongClickListener longClickListener;
     private ClickListener clickListener;
 
@@ -76,7 +76,7 @@ public class NormalButton extends ConstraintLayout implements View.OnLongClickLi
             icon = drawable;
 
         textColor=a.getColor(R.styleable.NormalButton_text_color,getResources().getColor(R.color.colorAccent));
-        iconTint =a.getColor(R.styleable.NormalButton_icon_tint,getResources().getColor(R.color.colorPrimary));
+        iconTint =a.getColor(R.styleable.NormalButton_icon_tint,getResources().getColor(R.color.grey));
         progressColor=a.getColor(R.styleable.NormalButton_loading_color,getResources().getColor(R.color.colorAccent));
 
         a.recycle();
@@ -101,6 +101,7 @@ public class NormalButton extends ConstraintLayout implements View.OnLongClickLi
         iconTV = findViewById(R.id.icon);
         setTitle(title);
         setIcon(icon);
+        setIconTint(iconTint);
 
 
         if (isEnabled) ready(true);//Default state ..
@@ -198,7 +199,6 @@ public class NormalButton extends ConstraintLayout implements View.OnLongClickLi
         if (icon == null)iconTV.setVisibility(GONE);
         else
             iconTV.setImageDrawable(icon);
-        ImageViewCompat.setImageTintList(iconTV, ColorStateList.valueOf(textColor));
 
         return this;
     }
@@ -213,5 +213,13 @@ public class NormalButton extends ConstraintLayout implements View.OnLongClickLi
         isEnabled =true;
     }
 
+    public int getIconTint() {
+        return iconTint;
+    }
+
+    public void setIconTint(int iconTint) {
+        this.iconTint = iconTint;
+        ImageViewCompat.setImageTintList(iconTV, ColorStateList.valueOf(iconTint));
+    }
 }
 
