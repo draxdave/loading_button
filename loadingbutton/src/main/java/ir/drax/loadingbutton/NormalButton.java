@@ -264,5 +264,10 @@ public class NormalButton extends ConstraintLayout implements View.OnLongClickLi
         this.typeface =  Typeface.createFromAsset(getContext().getAssets(), typefaceName);
         titleTV.setTypeface(typeface);
     }
+
+    public void setTitleColor(int color) {
+        titleTV.setTextColor(color);
+    }
+
 }
 
