@@ -6,8 +6,10 @@ import android.content.res.TypedArray;
 import android.graphics.LightingColorFilter;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.Guideline;
+import android.support.graphics.drawable.VectorDrawableCompat;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.widget.ContentLoadingProgressBar;
 import android.support.v4.widget.ImageViewCompat;
@@ -77,9 +79,11 @@ public class NormalButton extends ConstraintLayout implements View.OnLongClickLi
             }
         }
 
-        Drawable drawable = a.getDrawable(R.styleable.NormalButton_src);
-        if (drawable != null)
-            icon = drawable;
+        //Drawable drawable = a.getDrawable(R.styleable.NormalButton_src);
+        int dId = a.getResourceId(R.styleable.NormalButton_src,0);
+        if (dId!=0)
+            icon =getVectorForPreLollipop(dId);
+
 
         textColor=a.getColor(R.styleable.NormalButton_text_color,getResources().getColor(R.color.colorAccent));
         iconTint =a.getColor(R.styleable.NormalButton_icon_tint,getResources().getColor(R.color.colorAccent));
@@ -269,5 +273,18 @@ public class NormalButton extends ConstraintLayout implements View.OnLongClickLi
         titleTV.setTextColor(color);
     }
 
+    public Drawable getVectorForPreLollipop(int resourceId) {
+        Drawable icon=null;
+        try {
+            if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+                icon = VectorDrawableCompat.create(getResources(),resourceId,getContext().getTheme());
+            } else {
+                icon = getResources().getDrawable(resourceId, getContext().getTheme());
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return icon;
+    }
 }
 

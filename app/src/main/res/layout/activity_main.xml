@@ -26,6 +26,7 @@
         app:loading_color="@color/White"
         app:text_color="@color/White_90"
         app:icon_tint="@color/White_90"
+        app:src="@drawable/ic_call"
         app:text="Press me!"
         android:background="@drawable/curved_rect"
         app:fontFamily="@font/iran_sans"
