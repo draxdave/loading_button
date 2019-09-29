@@ -120,7 +120,7 @@ public class NormalButton extends ConstraintLayout implements View.OnLongClickLi
         root = findViewById(R.id.root);
         iconTV = findViewById(R.id.icon);
         setTitle(title);
-        titleTV.setTypeface(typeface);
+        //titleTV.setTypeface(typeface);
         setIcon(icon);
         setIconTint(iconTint);
 
@@ -260,13 +260,13 @@ public class NormalButton extends ConstraintLayout implements View.OnLongClickLi
 
     public void setFontTypeface(Typeface typeface) {
         this.typeface = typeface;
-        titleTV.setTypeface(typeface);
+        //titleTV.setTypeface(typeface);
     }
 
     public void setFontTypefaceFromAsset(String typefaceName) {
 
         this.typeface =  Typeface.createFromAsset(getContext().getAssets(), typefaceName);
-        titleTV.setTypeface(typeface);
+        //titleTV.setTypeface(typeface);
     }
 
     public void setTitleColor(int color) {
