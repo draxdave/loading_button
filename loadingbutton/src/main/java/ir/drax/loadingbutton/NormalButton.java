@@ -89,14 +89,14 @@ public class NormalButton extends ConstraintLayout implements View.OnLongClickLi
         iconTint =a.getColor(R.styleable.NormalButton_icon_tint,getResources().getColor(R.color.colorAccent));
         progressColor=a.getColor(R.styleable.NormalButton_loading_color,getResources().getColor(R.color.colorAccent));
 
-        int fontId;
+        /*int fontId;
         if (a.hasValue(R.styleable.NormalButton_fontFamily))
             fontId = a.getResourceId(R.styleable.NormalButton_fontFamily, -1);
 
         else
             fontId = R.font.quicksand_bold;
 
-        typeface = ResourcesCompat.getFont(context, fontId);
+        typeface = ResourcesCompat.getFont(context, fontId);*/
 
         a.recycle();
 
